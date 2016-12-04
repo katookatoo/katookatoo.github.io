@@ -22,12 +22,20 @@
 		
 	});
 	});
+
+
+	$.getJSON( "https://api.wunderground.com/api/f6dcb22028abbd02/forecast/q/NJ/Jersey_City.json", function( data ) { 
+		$('#temp-lo').text(data.forecast.simpleforecast.forecastday[0].low.celsius);
+		$('#temp-hi').text(data.forecast.simpleforecast.forecastday[0].high.celsius);
+	});
+
+
  
     });
      </script>
       <meta content="width=device-width, initial-scale=1" name="viewport">
       <meta content="Webflow" name="generator">
-      <link href="https://daks2k3a4ib2z.cloudfront.net/58434c117b363bfb5d3723cd/css/katyas-first-site-2c5dd5.webflow.dbacc622a.css" rel="stylesheet" type="text/css">
+      <link href="https://daks2k3a4ib2z.cloudfront.net/58434c117b363bfb5d3723cd/css/katyas-first-site-2c5dd5.webflow.d7eeb4829.css" rel="stylesheet" type="text/css">
       <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script><script type="text/javascript">WebFont.load({
          google: {
            families: ["Open Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic","Roboto:300,regular,500"]
@@ -43,27 +51,28 @@
             <div class="row w-hidden-medium w-row" id="row">
                <div class="w-col w-col-6">
                   <div class="white-box">
-                     <h3 class="number" id="bikes">?</h3>
+                     <div class="number" id="bikes">?</div>
                      <p>Bikes at Dixon Mills</p>
                   </div>
                   <div class="white-box">
-                     <h3 class="number" id="docks">?</h3>
+                     <div class="number" id="docks">?</div>
                      <p>Docks at Grove St</p>
                   </div>
                </div>
                <div class="w-col w-col-6">
                   <div class="white-box">
-                     <h3 class="number">?</h3>
-                     <p>Text1</p>
-                  </div>
+					<div class="number" id="temp-section"><span id="temp-lo">?</span>/<span id="temp-hi">?</span></div>
+		            <p>Temp LO/HI</p>                  
+		        	</div>
                   <div class="white-box">
-                     <h3 class="number">?</h3>
+                     <div class="number">?</div>
                      <p>Text2</p>
                   </div>
                </div>
             </div>
          </div>
       </div>
-      <div class="section"></div>
-   </body>
+	<div class="section">
+         <div class="wu">Weather by <a href="https://www.wunderground.com/?apiref= f6dcb22028abbd02" target="_blank">Weather Underground</a></div>
+      </div>   </body>
 </html>
