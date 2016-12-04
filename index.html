@@ -33,20 +33,22 @@
 //v.FCTTIME.mday == day
 	$.getJSON( "http://api.wunderground.com/api/f6dcb22028abbd02/hourly/q/NJ/Jersey_City.json", function( data ) { 
 		$.each(data.hourly_forecast, function(i, v) {
-		
-	    	if ( v.FCTTIME.hour == "8") {
-    	    	$('#temp-8am').text(v.temp.metric);
-        		$('#rain-8am').text(v.pop);
-        		if ($('#temp-8pm').text!='?') return;
-	    	}
-		
-    	if (v.FCTTIME.hour == "20") {
-        	$('#temp-8pm').text(v.temp.metric);
-        	$('#rain-8pm').text(v.pop);
-        	if ($('#temp-8am').text!='?') return;
-    	}
+			if (v.FCTTIME.mday == day) {
+		    	if ( v.FCTTIME.hour == "8") {
+    		    	$('#temp-8am').text(v.temp.metric);
+        			$('#rain-8am').text(v.pop);
+	        		if ($('#temp-8pm').text!='?') return;
+		    	}
+
+	    		if (v.FCTTIME.hour == "20") {
+    	    		$('#temp-8pm').text(v.temp.metric);
+        			$('#rain-8pm').text(v.pop);
+        			if ($('#temp-8am').text!='?') return;
+    			}
+    		}
 		});
 	});
+
 
 //get temperature for 12pm NYC	
 	$.getJSON( "http://api.wunderground.com/api/f6dcb22028abbd02/hourly/q/NY/New_York.json", function( data ) { 
@@ -58,7 +60,6 @@
     	return;
 		});
 	});
-
 
  
     });
