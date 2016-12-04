@@ -9,6 +9,9 @@
       <script>
     $( document ).ready(function() {
     
+    var d = new Date();
+	var day = d.getDate().toString();
+    
 	$.getJSON( "http://appservices.citibikenyc.com/v1/station/updates", function( data ) { 
 		$.each(data.results, function(i, v) {
     	if (v.id == 3279) {
@@ -24,9 +27,36 @@
 	});
 
 
-	$.getJSON( "https://api.wunderground.com/api/f6dcb22028abbd02/forecast/q/NJ/Jersey_City.json", function( data ) { 
-		$('#temp-lo').text(data.forecast.simpleforecast.forecastday[0].low.celsius);
-		$('#temp-hi').text(data.forecast.simpleforecast.forecastday[0].high.celsius);
+//get temperature and rain for 8am and 8pm JC
+//res.hourly_forecast[0].temp.metric
+//res.hourly_forecast[0].FCTTIME.hour 
+//v.FCTTIME.mday == day
+	$.getJSON( "http://api.wunderground.com/api/f6dcb22028abbd02/hourly/q/NJ/Jersey_City.json", function( data ) { 
+		$.each(data.hourly_forecast, function(i, v) {
+		
+	    	if ( v.FCTTIME.hour == "8") {
+    	    	$('#temp-8am').text(v.temp.metric);
+        		$('#rain-8am').text(v.pop);
+        		if ($('#temp-8pm').text!='?') return;
+	    	}
+		
+    	if (v.FCTTIME.hour == "20") {
+        	$('#temp-8pm').text(v.temp.metric);
+        	$('#rain-8pm').text(v.pop);
+        	if ($('#temp-8am').text!='?') return;
+    	}
+		});
+	});
+
+//get temperature for 12pm NYC	
+	$.getJSON( "http://api.wunderground.com/api/f6dcb22028abbd02/hourly/q/NY/New_York.json", function( data ) { 
+		$.each(data.hourly_forecast, function(i, v) {
+    	if (v.FCTTIME.hour == "12") {
+        	$('#temp-12pm').text(v.temp.metric);
+        	$('#rain-12pm').text(v.pop);
+    	}
+    	return;
+		});
 	});
 
 
@@ -35,7 +65,7 @@
      </script>
       <meta content="width=device-width, initial-scale=1" name="viewport">
       <meta content="Webflow" name="generator">
-      <link href="https://daks2k3a4ib2z.cloudfront.net/58434c117b363bfb5d3723cd/css/katyas-first-site-2c5dd5.webflow.4647b121d.css" rel="stylesheet" type="text/css">
+      <link href="https://daks2k3a4ib2z.cloudfront.net/58434c117b363bfb5d3723cd/css/katyas-first-site-2c5dd5.webflow.350a5d62a.css" rel="stylesheet" type="text/css">
       <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script><script type="text/javascript">WebFont.load({
          google: {
            families: ["Open Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic","Roboto:300,regular,500"]
@@ -69,10 +99,66 @@
                      <p>Text2</p>
                   </div>
                </div>
+               <div class="w-clearfix w-col w-col-6">
+                  <div class="white-box">
+                     <div class="w-row">
+                        <div class="w-col w-col-4">
+                           <div class="number"><span id="temp-8am">?</span><span>°C</span></div>
+                        </div>
+                        <div class="w-col w-col-4">
+                           <div class="number"><span id="temp-12pm">?</span><span>°C</span></div>
+                        </div>
+                        <div class="w-col w-col-4">
+                           <div class="number"><span id="temp-8pm">?</span><span>°C</span></div>
+                        </div>
+                     </div>
+                     <div class="w-row">
+                        <div class="w-col w-col-4">
+                           <p class="label">8am</p>
+                        </div>
+                        <div class="w-col w-col-4">
+                           <p class="label">12pm</p>
+                        </div>
+                        <div class="w-col w-col-4">
+                           <p class="label">8pm</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="white-box">
+                     <div class="w-row">
+                        <div class="w-col w-col-4">
+                           <div>
+                              <div class="number"><span id="rain-8am">?</span><span>%</span></div>
+                           </div>
+                        </div>
+                        <div class="w-col w-col-4">
+                           <div class="number"><span id="rain-12pm">?</span><span>%</span></div>
+                        </div>
+                        <div class="w-col w-col-4">
+                           <div class="number"><span id="rain-8pm">?</span><span>%</span></div>
+                        </div>
+                     </div>
+                     <div class="w-row">
+                        <div class="w-col w-col-4">
+                           <p class="label">8am</p>
+                        </div>
+                        <div class="w-col w-col-4">
+                           <p class="label">12pm</p>
+                        </div>
+                        <div class="w-col w-col-4">
+                           <p class="label">8pm</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
             </div>
          </div>
       </div>
+            </div>
+         </div>
+      </div>
+
 	<div class="section">
-         <div class="wu">Weather by <a href="https://www.wunderground.com/?apiref= f6dcb22028abbd02" target="_blank">Weather Underground</a></div>
+         <div class="wu">Weather by <a href="https://www.wunderground.com/?apiref=5b41160f63453770" target="_blank">Weather Underground</a></div>
       </div>   </body>
 </html>
