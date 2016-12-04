@@ -7,7 +7,7 @@
       <script>
     $( document ).ready(function() {
     
-	$.getJSON( "http://appservices.citibikenyc.com/v1/station/updates", function( data ) { 
+	$.getJSON( "//appservices.citibikenyc.com/v1/station/updates", function( data ) { 
 	$.each(data.results, function(i, v) {
     	if (v.id == 3279) {
         	$('#bikes').text(v.availableBikes);
