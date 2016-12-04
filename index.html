@@ -53,11 +53,13 @@
 //get temperature for 12pm NYC	
 	$.getJSON( "http://api.wunderground.com/api/f6dcb22028abbd02/hourly/q/NY/New_York.json", function( data ) { 
 		$.each(data.hourly_forecast, function(i, v) {
-    	if (v.FCTTIME.hour == "12") {
-        	$('#temp-12pm').text(v.temp.metric);
-        	$('#rain-12pm').text(v.pop);
-    	}
-    	return;
+			if (v.FCTTIME.mday == day) {	    	
+	   		 	if (v.FCTTIME.hour == "12") {
+    		    	$('#temp-12pm').text(v.temp.metric);
+      		  		$('#rain-12pm').text(v.pop);
+	  		  	}
+    			return;
+			}
 		});
 	});
 
@@ -102,12 +104,8 @@
                      </div>
                   </div>
                   <div class="white-box">
-                     <h3 class="number">8</h3>
-                     <p class="label">Docks at Grove St</p>
-                  </div>
-                  <div class="white-box">
-                     <h3 class="number" id="dock">8</h3>
-                     <p class="label">Docks at Grove St</p>
+                     <h3 class="number">?</h3>
+                     <p class="label">?</p>
                   </div>
                </div>
                <div class="w-col w-col-6">
@@ -157,18 +155,6 @@
                         <div class="w-col w-col-4">
                            <p class="label">8pm</p>
                         </div>
-                     </div>
-                  </div>
-                  <div class="white-box">
-                     <div class="w-row">
-                        <div class="w-col w-col-6">
-                           <div></div>
-                        </div>
-                        <div class="w-col w-col-6"></div>
-                     </div>
-                     <div class="w-row">
-                        <div class="w-col w-col-6"></div>
-                        <div class="w-col w-col-6"></div>
                      </div>
                   </div>
                </div>
