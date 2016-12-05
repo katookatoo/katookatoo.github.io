@@ -36,16 +36,23 @@
 			if (v.FCTTIME.mday == day) {
 		    	if ( v.FCTTIME.hour == "8") {
     		    	$('#temp-8am').text(v.temp.metric);
+    		    	$('#temp-8am-date').text(v.FCTTIME.month_name_abbrev + " " + v.FCTTIME.mday);
         			$('#rain-8am').text(v.pop);
 	        		if ($('#temp-8pm').text!='?') return;
 		    	}
 
 	    		if (v.FCTTIME.hour == "20") {
     	    		$('#temp-8pm').text(v.temp.metric);
+    	    		$('#temp-8pm-date').text(v.FCTTIME.month_name_abbrev + " " + v.FCTTIME.mday);
         			$('#rain-8pm').text(v.pop);
         			if ($('#temp-8am').text!='?') return;
     			}
-    		}
+    		} else if (v.FCTTIME.mday == (d.getDate()+1).toString()){
+	    				$('#temp-8am').text(v.temp.metric);
+    					$('#rain-8am').text(v.pop);
+    					$('#temp-8am-date').text(v.FCTTIME.month_name_abbrev + " " + v.FCTTIME.mday);
+					}
+					return;
 		});
 	});
 
@@ -56,10 +63,17 @@
 			if (v.FCTTIME.mday == day) {	    	
 	   		 	if (v.FCTTIME.hour == "12") {
     		    	$('#temp-12pm').text(v.temp.metric);
+    		    	$('#temp-12pm-date').text(v.FCTTIME.month_name_abbrev + " " + v.FCTTIME.mday);
       		  		$('#rain-12pm').text(v.pop);
 	  		  	}
     			return;
-			}
+			} else if (v.FCTTIME.mday == (d.getDate()+1).toString()){
+	    		    	$('#temp-12pm').text(v.temp.metric);
+    			    	$('#temp-12pm-date').text(v.FCTTIME.month_name_abbrev + " " + v.FCTTIME.mday);
+      			  		$('#rain-12pm').text(v.pop);
+
+					}
+					return;
 		});
 	});
 
@@ -123,13 +137,13 @@
                      </div>
                      <div class="w-row">
                         <div class="w-col w-col-4">
-                           <p class="label">8am</p>
+                           <p class="label"><span id="temp-8am-date"></span> 8am</p>
                         </div>
                         <div class="w-col w-col-4">
-                           <p class="label">12pm</p>
+                           <p class="label"><span id="temp-12pm-date"></span> 12pm</p>
                         </div>
                         <div class="w-col w-col-4">
-                           <p class="label">8pm</p>
+                           <p class="label"><span id="temp-8pm-date"></span> 8pm</p>
                         </div>
                      </div>
                   </div>
